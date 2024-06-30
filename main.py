@@ -97,12 +97,15 @@ def print_dashes(length: int = 80):
 
 def print_data(timestamps, ldks, ibks, jbhs):
     print_dashes()
-    print('Zeit\t\t\t| Landeck\t| Innsbruck\t| Jenbach')
+    print('Zeit\t\t\t| Data\t| Landeck\t| Innsbruck\t| Jenbach')
     print_dashes()
     for timestamp, ldk, ibk, jbh in zip(timestamps, ldks, ibks, jbhs):
-        print(timestamp, '\t|', ldk[0]['DD'], '\t|',
-              ibk[0]['DD'], '\t|', jbh[0]['DD'])
-    print_dashes()
+        print(f"{timestamp}\t| DD\t| {ldk[0]['DD']:5.2f} \t" +
+              f"| {ibk[0]['DD']:5.2f} \t| {jbh[0]['DD']:5.2f}")
+
+        print(f"{timestamp}\t| FFAM\t| {ldk[2]['FFAM']:5.2f} \t" +
+              f"| {ibk[2]['FFAM']:5.2f} \t| {jbh[2]['FFAM']:5.2f}")
+        print_dashes()
     print_dashes()
     print()
 
