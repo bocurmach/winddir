@@ -69,7 +69,8 @@ def get_data_from_api():
 
     content = json.loads(r.content.decode('utf-8'))
 
-    timestamp = datetime.strptime(content['timestamps'][0].split('+')[0], '%Y-%m-%dT%H:%M')
+    timestamp = datetime.strptime(
+        content['timestamps'][0].split('+')[0], '%Y-%m-%dT%H:%M')
 
     ibk = list()
     jbh = list()
@@ -89,23 +90,24 @@ def get_data_from_api():
 
     return timestamp, ldk, ibk, jbh
 
-def print_dashes(length: int=60):
+
+def print_dashes(length: int = 80):
     print('-'*length)
+
 
 def print_data(timestamps, ldks, ibks, jbhs):
     print_dashes()
     print('Zeit\t\t\t\t\t| Landeck\t| Innsbruck\t| Jenbach')
     print_dashes()
     for timestamp, ldk, ibk, jbh in zip(timestamps, ldks, ibks, jbhs):
-        print(timestamp, '\t|', ldk[0]['DD'], '\t|', ibk[0]['DD'], '\t|', jbh[0]['DD'])
+        print(timestamp, '\t|', ldk[0]['DD'], '\t|',
+              ibk[0]['DD'], '\t|', jbh[0]['DD'])
     print_dashes()
     print_dashes()
     print()
 
 
 def main():
-
-    print('todo: git init, commit, push, run on pi as is')
     ten_min_periods = 10
 
     ldk = list()
