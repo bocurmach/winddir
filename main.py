@@ -116,14 +116,17 @@ def print_data(a, timestamps, ldks, ibks, jbhs):
 
 
 def main():
+    a = open('windlog', 'a')
+
+    print_dashes(a)
+    printa('Zeit\t\t\t| Data\t| Landeck\t| Innsbruck\t| Jenbach', a)
+    print_dashes(a)
     ten_min_periods = 10
 
     ldk = list()
     ibk = list()
     jbh = list()
     timestamps = list()
-
-    a = open('windlog', 'a')
 
     last_time_stamp = datetime(year=1900, month=1, day=1)
     while True:
@@ -143,7 +146,20 @@ def main():
 
             last_time_stamp = cur_timestamp
 
-            print_data(a, timestamps, ldk, ibk, jbh)
+            printa(f"{cur_timestamp}\t| DD\t| {cur_ldk[0]['DD']:5.2f} \t" +
+                   f"| {cur_ibk[0]['DD']:5.2f} \t| {cur_jbh[0]['DD']:5.2f}", a)
+
+            printa(f"{cur_timestamp}\t| DDX\t| {cur_ldk[1]['DDX']:5.2f} \t" +
+                   f"| {cur_ibk[1]['DDX']:5.2f} \t| {cur_jbh[1]['DDX']:5.2f}", a)
+
+            printa(f"{cur_timestamp}\t| FFAM\t| {cur_ldk[2]['FFAM']:5.2f} \t" +
+                   f"| {cur_ibk[2]['FFAM']:5.2f} \t| {cur_jbh[2]['FFAM']:5.2f}", a)
+
+            printa(f"{cur_timestamp}\t| FFX\t| {cur_ldk[3]['FFX']:5.2f} \t" +
+                   f"| {cur_ibk[3]['FFX']:5.2f} \t| {cur_jbh[3]['FFX']:5.2f}", a)
+
+            print_dashes(a)
+            # print_data(a, timestamps, ldk, ibk, jbh)
             time.sleep(9*60)
         else:
             time.sleep(10)
