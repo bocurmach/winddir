@@ -129,6 +129,9 @@ def main():
     timestamps = list()
 
     last_time_stamp = datetime(year=1900, month=1, day=1)
+
+    a.close()
+
     while True:
         cur_timestamp, cur_ldk, cur_ibk, cur_jbh = get_data_from_api()
 
@@ -145,7 +148,7 @@ def main():
             jbh.append(cur_jbh)
 
             last_time_stamp = cur_timestamp
-
+            a = open('windlog', 'a')
             printa(f"{cur_timestamp}\t| DD\t| {cur_ldk[0]['DD']:5.2f} \t" +
                    f"| {cur_ibk[0]['DD']:5.2f} \t| {cur_jbh[0]['DD']:5.2f}", a)
 
@@ -159,6 +162,7 @@ def main():
                    f"| {cur_ibk[3]['FFX']:5.2f} \t| {cur_jbh[3]['FFX']:5.2f}", a)
 
             print_dashes(a)
+            a.close()
             # print_data(a, timestamps, ldk, ibk, jbh)
             time.sleep(9*60)
         else:
