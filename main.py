@@ -91,23 +91,28 @@ def get_data_from_api():
     return timestamp, ldk, ibk, jbh
 
 
-def print_dashes(length: int = 80):
-    print('-'*length)
+def print_dashes(a, length: int = 80):
+    printa('-'*length, a)
 
 
-def print_data(timestamps, ldks, ibks, jbhs):
-    print_dashes()
-    print('Zeit\t\t\t| Data\t| Landeck\t| Innsbruck\t| Jenbach')
-    print_dashes()
+def printa(content: str, a):
+    print(content)
+    a.write(content + '\n')
+
+
+def print_data(a, timestamps, ldks, ibks, jbhs):
+    print_dashes(a)
+    printa('Zeit\t\t\t| Data\t| Landeck\t| Innsbruck\t| Jenbach', a)
+    print_dashes(a)
     for timestamp, ldk, ibk, jbh in zip(timestamps, ldks, ibks, jbhs):
-        print(f"{timestamp}\t| DD\t| {ldk[0]['DD']:5.2f} \t" +
-              f"| {ibk[0]['DD']:5.2f} \t| {jbh[0]['DD']:5.2f}")
+        printa(f"{timestamp}\t| DD\t| {ldk[0]['DD']:5.2f} \t" +
+               f"| {ibk[0]['DD']:5.2f} \t| {jbh[0]['DD']:5.2f}", a)
 
-        print(f"{timestamp}\t| FFAM\t| {ldk[2]['FFAM']:5.2f} \t" +
-              f"| {ibk[2]['FFAM']:5.2f} \t| {jbh[2]['FFAM']:5.2f}")
-        print_dashes()
-    print_dashes()
-    print()
+        printa(f"{timestamp}\t| FFAM\t| {ldk[2]['FFAM']:5.2f} \t" +
+               f"| {ibk[2]['FFAM']:5.2f} \t| {jbh[2]['FFAM']:5.2f}", a)
+        print_dashes(a)
+    print_dashes(a)
+    printa("", a)
 
 
 def main():
@@ -117,6 +122,8 @@ def main():
     ibk = list()
     jbh = list()
     timestamps = list()
+
+    a = open('windlog', 'a')
 
     last_time_stamp = datetime(year=1900, month=1, day=1)
     while True:
@@ -136,7 +143,7 @@ def main():
 
             last_time_stamp = cur_timestamp
 
-            print_data(timestamps, ldk, ibk, jbh)
+            print_data(a, timestamps, ldk, ibk, jbh)
             time.sleep(9*60)
         else:
             time.sleep(10)
